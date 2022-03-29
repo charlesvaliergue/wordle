@@ -26,7 +26,7 @@ void compare (char mot1[5], char mot2[5])
 	{
 		if (mot1[i] == mot2[i])
 		{
-			printf("La lettre %c est bien placée\n",mot1[i]);
+			printf("La lettre %c (place %d) est bien placée\n",mot1[i],i+1);
 			verif[i] = 1;
 			cpt++;
 		}
@@ -48,9 +48,10 @@ void compare (char mot1[5], char mot2[5])
 		{
 			for(j=0;j<5;j++)
 			{
-				if (mot1[i] == mot2[j])
+				if ((mot1[i] == mot2[j])&&(verif[j]==0))
 				{
-					printf("La lettre %c est dans le mot mais mal placée\n",mot1[i]);
+					printf("La lettre %c (place %d) est dans le mot mais mal placée\n",mot1[i],i+1);
+					verif[j]=1;
 				}
 			}
 			i++;

@@ -27,8 +27,6 @@ void jeu (char* mot_choisi)
 			return;
 		}
 
-		if ()
-
 		if (strcmp(buffer,mot_choisi) == 0)
 		{
 			printf("Félicitations, vous avez trouvé le bon mot\n");
