@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include <string.h>
 
+/*Cette fonction permet de comparer les lettres. La première partie du code
+(pour savoir si les lettres sont bien placées) se fait sans erreur alors
+que la 2e partie bug si par exemple on a un mot avec 2x la même lettre 
+(ex: belle) et que tu rentres un mot avec 1x chauq lettre (ex: livre)*/
 
 void compare (char mot1[5], char mot2[5])
 {
@@ -17,13 +21,12 @@ void compare (char mot1[5], char mot2[5])
 		verif[i] = 0;
 	}
 
-
 	// On regarde dans un premier temps les lettres placées correctement 
 	for (i=0; i<5; i++)
 	{
 		if (mot1[i] == mot2[i])
 		{
-			printf("La lettre %c est bien placée\n",mot1[i]);
+			printf("La lettre %c (place %d) est bien placée\n",mot1[i],i+1);
 			verif[i] = 1;
 			cpt++;
 		}
@@ -45,9 +48,10 @@ void compare (char mot1[5], char mot2[5])
 		{
 			for(j=0;j<5;j++)
 			{
-				if (mot1[i] == mot2[j])
+				if ((mot1[i] == mot2[j])&&(verif[j]==0))
 				{
-					printf("La lettre %c est dans le mot mais mal placée\n",mot1[i]);
+					printf("La lettre %c (place %d) est dans le mot mais mal placée\n",mot1[i],i+1);
+					verif[j]=1;
 				}
 			}
 			i++;
@@ -59,14 +63,4 @@ void compare (char mot1[5], char mot2[5])
 	}
 
 	return;
-}
-
-int main (int argc, char** argv)
-{
-	if (argc != 3)
-	{
-		printf("ERREUR. Mauvais nb d'arg\n");
-	}
-
-	compare(argv[1],argv[2]);
 }
