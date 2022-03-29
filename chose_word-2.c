@@ -10,7 +10,7 @@ Je sais juste pas comment faire pour sélectionner les mots de 5 lettres.
 Je pense qu'on va juste faire un dico qu'avec des mots de 5 lettres c'est 
 plus simple*/
 
-int piocher_mot (char* biblio)
+char* piocher_mot (char* biblio)
 {
 
 	// Variables
@@ -19,7 +19,7 @@ int piocher_mot (char* biblio)
 	int nb_mots = 0;
 	int num_mot_choisi = 0;
 	int caractere_lu = 0;
-	char* mot_choisi;
+	char* mot_choisi = NULL;
 
 	// Ouverture du fichier
 	dico = fopen(biblio, "rb");
@@ -27,14 +27,14 @@ int piocher_mot (char* biblio)
 	if (dico == NULL)
 	{
 		printf("ERREUR. Le fichier n'a pas pu s'ouvrir\n");
-		return 0;
+		return mot_choisi;
 	}
 
 	// On récupère le nombre de mots dans le fichier
 	while (caractere_lu != EOF)
 	{
 		caractere_lu = fgetc (dico);
-		if (caractere_lu == '\n')
+		if (caractere_lu == ' ' || caractere_lu == '\n')
 		{
 		nb_mots++;
 		}
@@ -43,15 +43,13 @@ int piocher_mot (char* biblio)
 	// On choisit un nombre aléatoire entre 0 et nb_mots
 	num_mot_choisi = rand()%nb_mots;
 
-	printf("%d\n",num_mot_choisi);
-
 	// On place le curseur face au mot souhaité dans le fichier
 	rewind(dico);
 
 	while (num_mot_choisi > 1)
 	{
 		caractere_lu = fgetc (dico);
-		if (caractere_lu == '\n')
+		if (caractere_lu == ' ' || caractere_lu == '\n')
 		{
 			num_mot_choisi--;
 		}
@@ -60,21 +58,24 @@ int piocher_mot (char* biblio)
 	// On récupère le mot choisi
 	mot_choisi = malloc(sizeof(char));
 
-	fgets(mot_choisi,100,dico);
+	fscanf(dico,"%s",mot_choisi);
 
-	mot_choisi[strlen(mot_choisi) - 1] = '\0';
+	if (mot_choisi[strlen(mot_choisi) - 1] == '\n')
+	{
+		mot_choisi[strlen(mot_choisi) - 1] = '\0';
+	}
 
 	fclose(dico);
 
 	printf("%s\n",mot_choisi);
 
-	return 1;
+	return mot_choisi;
 }
 
 
-int main(int argc,char** argv){
+/*int main(int argc,char** argv){
 	if (argc!=2){
 		printf("ERREUR. Mauvais nombre d'arguments\n");
 	}
-	piocher_mot(argv[1]);
-}
+	printf("%s\n",piocher_mot(argv[1]));
+}*/
