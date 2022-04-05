@@ -7,12 +7,9 @@
 #include "load_dic.h"
 
 
-bool find_word_dicho (char *biblio, char *word, int left, int right){
+bool find_word_dicho (char ** tab, char *word, int left, int right){
 	int middle;
-	char** tab;
-	unsigned int len = 7980;
-
-	tab = load_file(biblio,&len);
+	// unsigned int len = 7980;
 
 
 	while(left-right!=-1 && left-right!=0 && left-right!=1){
