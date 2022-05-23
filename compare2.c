@@ -8,9 +8,17 @@ int* compare2 (char mot1[5], char mot2[5])
 	// Variables
 	int i,j;
 	int cpt = 0;
-	int verif[5];
+	int* verif;
 
 	// On initialise mon tableau de vérification
+
+	verif = malloc (sizeof (char) * 5);
+
+	if (verif == NULL)
+	{
+		printf("ERREUR au moment de l'allocution\n");
+		return verif;
+	}
 
 	for (i=0; i<5; i++)
 	{
@@ -35,26 +43,43 @@ int* compare2 (char mot1[5], char mot2[5])
 		return verif;
 	}
 
-	i = 0;
 	// On regarde ensuite si les lettres qui restent sont mal placées
-	while (i<5)
+	for(i=0;i<5;i++)
 	{
 		if (verif[i] == 0)
 		{
 			for(j=0;j<5;j++)
 			{
-				if ((mot1[i] == mot2[j])&&(verif[j]==0))
+				if (mot2[i] == mot1[j] && i!=j)
 				{
-					verif[j]=1;
+					verif[i]=1;
 				}
 			}
-			i++;
 		}
-		else
-		{
-			i++;
-		}
+		
 	}
 	return verif;
 }
 
+
+// int main()
+// {
+// 	int* buffer = malloc (sizeof(int)* 5);
+
+// 			if (buffer == NULL)
+// 			{
+// 				printf("ERREUR au moment de l'allocution\n");
+// 				return 0;
+// 			}
+	
+// 	char mot1[5] = "TARIF";
+// 	char mot2[5] = "TARIE";
+
+// 	buffer = compare2 (mot1, mot2);
+
+// 	for (int x=0;x<5;x++)
+// 		{
+// 			printf ("%d",buffer[x]);
+// 		}
+// 		printf ("\n");
+// }

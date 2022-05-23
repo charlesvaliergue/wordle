@@ -13,6 +13,7 @@ char *condition_passage1 (bool condition)
 	{
 		printf("Veuillez saisir à nouveau un mot de bonne taille\n");
 		scanf("%s",buffer);
+		printf ("\n");
 		if (strlen(buffer) == 5)
 		{
 			condition = true;
@@ -27,8 +28,9 @@ char *condition_passage2 (char **tab, bool condition)
 {
 	while (condition == false)
 	{
-		printf("Veuillez saisir à nouveau un mot français\n");
+		printf("Veuillez saisir à nouveau un mot français, de bonne taille et en majuscule\n");
 		scanf("%s",buffer);
+		printf ("\n");
 		if (find_word_dicho(tab,buffer,0,7980) == true)
 		{
 			condition = true;
@@ -37,13 +39,3 @@ char *condition_passage2 (char **tab, bool condition)
 
 	return buffer;
 }
-
-/*int main (int argc, char **argv)
-{
-	bool c = false;
-	unsigned int len = 7980;
-
-	char **tab = load_file (argv[1],&len);
-
-	condition_passage2 (tab,c);
-}*/

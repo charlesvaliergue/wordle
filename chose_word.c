@@ -2,80 +2,33 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include "load_dic.h"
 
 
 /* Permet de rechercher un mot aléatoire dans un dictionnaire
-(fichier texte avec plusieurs mots)
-Je sais juste pas comment faire pour sélectionner les mots de 5 lettres.
-Je pense qu'on va juste faire un dico qu'avec des mots de 5 lettres c'est 
-plus simple*/
+(fichier texte avec plusieurs mots) */
 
 char* piocher_mot (char* biblio)
 {
+	srand (time(NULL));
 
 	// Variables
-	srand(time(NULL));
-	FILE* dico = NULL;
-	int nb_mots = 0;
-	int num_mot_choisi = 0;
-	int caractere_lu = 0;
-	char* mot_choisi = NULL;
+	unsigned int len = 7980;
+	char **tab = load_file (biblio, &len);
+	char* mot_choisi;
+	int num_mot_choisi;
 
-	// Ouverture du fichier
-	dico = fopen(biblio, "rb");
+	mot_choisi = malloc(5*sizeof(char));
 
-	if (dico == NULL)
+	if (mot_choisi == NULL)
 	{
-		printf("ERREUR. Le fichier n'a pas pu s'ouvrir\n");
+		printf ("ERREUR. Mauvais alllocation\n");
 		return mot_choisi;
 	}
 
-	// On récupère le nombre de mots dans le fichier
-	while (caractere_lu != EOF)
-	{
-		caractere_lu = fgetc (dico);
-		if (caractere_lu == ' ' || caractere_lu == '\n')
-		{
-		nb_mots++;
-		}
-	}
+	num_mot_choisi = rand()%len;
 
-	// On choisit un nombre aléatoire entre 0 et nb_mots
-	num_mot_choisi = rand()%nb_mots;
-
-	// On place le curseur face au mot souhaité dans le fichier
-	rewind(dico);
-
-	while (num_mot_choisi > 1)
-	{
-		caractere_lu = fgetc (dico);
-		if (caractere_lu == ' ' || caractere_lu == '\n')
-		{
-			num_mot_choisi--;
-		}
-	}
-
-	// On récupère le mot choisi
-	mot_choisi = malloc(sizeof(char));
-
-	fscanf(dico,"%s",mot_choisi);
-
-	if (mot_choisi[strlen(mot_choisi) - 1] == '\n')
-	{
-		mot_choisi[strlen(mot_choisi) - 1] = '\0';
-	}
-
-	fclose(dico);
-
-	printf("%s\n",mot_choisi);
+	strcpy (mot_choisi,tab[num_mot_choisi]);
 
 	return mot_choisi;
 }
-
-
-/*int main(int argc,char** argv){
-	if (argc!=2){
-		printf("ERREUR. Mauvais nombre d'arguments\n");
-	}
-	printf("%s\n",piocher_mot(argv[1]));
-}*/

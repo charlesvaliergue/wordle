@@ -2,11 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 
-/*Cette fonction permet de comparer les lettres. La première partie du code
-(pour savoir si les lettres sont bien placées) se fait sans erreur alors
-que la 2e partie bug si par exemple on a un mot avec 2x la même lettre 
-(ex: belle) et que tu rentres un mot avec 1x chauq lettre (ex: livre)*/
-
 void compare (char mot1[5], char mot2[5])
 {
 	// Variables
@@ -41,6 +36,7 @@ void compare (char mot1[5], char mot2[5])
 	}
 
 	i = 0;
+	
 	// On regarde ensuite si les lettres qui restent sont mal placées
 	while (i<5)
 	{
